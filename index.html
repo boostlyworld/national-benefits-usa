@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>National Benefits USA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   National Benefits USA — design tokens
+   The floating style panel rewrites --primary, --secondary,
+   --font-head and --font-body. Everything else derives from them.
+   ============================================================ */
+:root{
+  --primary:#1B2A4A;
+  --secondary:#14213D;
+  --gold:#B08D4F;
+  --bg:#FFFFFF;
+  --cream:#F8F6F3;
+  --charcoal:#2B2B2B;
+  --muted:#6B6B6B;
+
+  --font-head:Georgia, 'Times New Roman', serif;
+  --font-body:'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* derived hairlines — recompute automatically when --primary changes */
+  --rule:color-mix(in srgb, var(--primary) 22%, transparent);
+  --rule-soft:color-mix(in srgb, var(--primary) 12%, transparent);
+  --on-dark-soft:rgba(255,255,255,.62);
+  --on-dark-rule:rgba(255,255,255,.16);
+
+  --shell:1200px;
+  --nav-h:74px;
+
+  --hero-img:url("hero_background.png");
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--charcoal);
+  font-family:var(--font-body);
+  font-size:17px;
+  font-weight:400;
+  line-height:1.75;
+  overflow-x:hidden;
+}
+h1,h2,h3,h4{
+  font-family:var(--font-head);
+  color:var(--primary);
+  font-weight:400;
+  margin:0;
+  line-height:1.18;
+}
+p{margin:0;}
+a{color:var(--primary);text-decoration:none;}
+img{max-width:100%;}
+
+.shell{
+  width:100%;
+  max-width:var(--shell);
+  margin:0 auto;
+  padding:0 40px;
+}
+section{scroll-margin-top:calc(var(--nav-h) + 16px);}
+
+/* shared type helpers */
+.rule{
+  display:block;
+  width:58px;
+  height:2px;
+  background:var(--gold);
+  border:0;
+  margin:0 0 26px;
+}
+.rule--center{margin-left:auto;margin-right:auto;}
+.eyebrow{
+  font-size:11px;
+  letter-spacing:.26em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:18px;
+}
+.lede{color:var(--muted);}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+.nav{
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:200;
+  height:var(--nav-h);
+  display:flex;
+  align-items:center;
+  background:var(--bg);
+  border-bottom:1px solid var(--gold);
+}
+.nav .shell{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+}
+.nav__mark{
+  font-family:var(--font-head);
+  font-size:19px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  white-space:nowrap;
+  color:var(--primary);
+}
+.nav__links{
+  display:flex;
+  align-items:center;
+  gap:38px;
+  list-style:none;
+  margin:0;padding:0;
+}
+.nav__links a{
+  font-size:11.5px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--charcoal);
+  padding-bottom:3px;
+  border-bottom:1px solid transparent;
+}
+.nav__links a:hover{color:var(--primary);border-bottom-color:var(--gold);}
+
+/* ============================================================
+   1. HERO
+   ============================================================ */
+.hero{
+  min-height:100vh;
+  min-height:100dvh;
+  display:flex;
+  align-items:center;
+  text-align:left;
+  padding:calc(var(--nav-h) + 80px) 0 96px;
+  /* hero_background.png sits in this folder — the white space on its left
+     is where the copy lands. The white gradient on top keeps the text
+     legible once "cover" starts cropping the image on smaller screens. */
+  background-color:var(--bg);
+  background-image:
+    linear-gradient(90deg,
+      rgba(255,255,255,.96) 0%,
+      rgba(255,255,255,.92) 32%,
+      rgba(255,255,255,.32) 44%,
+      rgba(255,255,255,0) 52%),
+    var(--hero-img);
+  background-repeat:no-repeat;
+  background-position:right center;
+  background-size:cover;
+}
+.hero__inner{max-width:520px;}
+.hero h1{
+  font-size:clamp(2.2rem,3.6vw,3.6rem);
+  letter-spacing:.005em;
+  margin-bottom:26px;
+}
+.hero__sub{
+  font-size:clamp(1rem,1.35vw,1.15rem);
+  color:var(--muted);
+  max-width:46ch;
+  margin:0 0 44px;
+}
+.hero__ornament{
+  color:var(--gold);
+  font-size:14px;
+  letter-spacing:.7em;
+  margin-bottom:26px;
+}
+.hero__tag{
+  margin-top:26px;
+  font-size:13.5px;
+  letter-spacing:.06em;
+  color:var(--gold);
+}
+
+/* buttons */
+.btn{
+  display:inline-block;
+  font-family:var(--font-body);
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--primary);
+  background:transparent;
+  border:1.5px solid var(--primary);
+  padding:19px 52px;
+  cursor:pointer;
+  line-height:1;
+}
+.btn:hover{background:var(--primary);color:#fff;border-color:var(--primary);}
+
+/* ============================================================
+   2. ABOUT
+   ============================================================ */
+.about{padding:120px 0;}
+.about__grid{
+  display:grid;
+  grid-template-columns:1.05fr 1fr;
+  gap:80px;
+  align-items:center;
+}
+.about h2{font-size:clamp(2rem,3.2vw,2.85rem);margin-bottom:26px;}
+.about p + p{margin-top:20px;}
+
+.frame{
+  position:relative;
+  aspect-ratio:4/5;
+  background:var(--cream);
+  border:1px solid var(--rule);
+  overflow:hidden;
+  box-shadow:0 20px 44px rgba(0,0,0,.08);
+}
+.frame img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:100% 50%;
+  /* the source carries a lot of empty white down its left side, so the
+     frame zooms in on the house and holds it against the right edge */
+  transform:scale(1.35);
+  transform-origin:100% 46%;
+}
+
+/* ============================================================
+   3. SERVICES
+   ============================================================ */
+.services{padding:104px 0 120px;border-top:1px solid var(--rule-soft);}
+.services__head{text-align:center;max-width:620px;margin:0 auto 78px;}
+.services h2{font-size:clamp(2rem,3.2vw,2.85rem);margin-bottom:20px;}
+.services__grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0;
+}
+.service{padding:6px 46px;}
+.service + .service{border-left:1px solid var(--rule-soft);}
+.service__icon{
+  display:block;
+  font-size:28px;
+  line-height:1;
+  color:var(--gold);
+  margin-bottom:24px;
+}
+.service h3{font-size:1.32rem;margin-bottom:16px;}
+.service p{font-size:15.5px;color:var(--muted);}
+
+/* ============================================================
+   4. WHY CHOOSE US
+   ============================================================ */
+.why{background:var(--cream);padding:112px 0;}
+.why__head{text-align:center;max-width:900px;margin:0 auto;}
+.why h2{font-size:clamp(1.9rem,3vw,2.6rem);margin-bottom:38px;}
+.quote{
+  font-family:var(--font-head);
+  font-style:italic;
+  font-size:clamp(1.35rem,2.3vw,1.95rem);
+  line-height:1.6;
+  color:var(--primary);
+  margin:0 auto 26px;
+  max-width:40ch;
+}
+.quote__by{
+  font-size:11px;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.pillars{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:46px;
+  list-style:none;
+  margin:74px 0 0;
+  padding:56px 0 0;
+  border-top:1px solid var(--rule-soft);
+  text-align:left;
+}
+.pillars li{display:flex;gap:16px;align-items:flex-start;}
+.pillars .mark{color:var(--gold);font-size:15px;line-height:1.7;}
+.pillars h4{font-size:1.05rem;margin-bottom:8px;}
+.pillars p{font-size:14.5px;color:var(--muted);line-height:1.7;}
+
+/* ============================================================
+   5. FUNDING & SUPPORT
+   ============================================================ */
+.funding{
+  background:var(--cream);
+  /* the testimonial band above is cream too — this hairline keeps them
+     reading as two separate sections rather than one long block */
+  border-top:1px solid var(--rule-soft);
+  padding:96px 0;
+}
+.funding__head{text-align:center;max-width:760px;margin:0 auto 72px;}
+.funding h2{font-size:clamp(2rem,3.2vw,2.85rem);margin-bottom:20px;}
+.funding__sub{font-size:1.1rem;color:var(--muted);}
+.funding__grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:56px;
+}
+.fund{display:flex;flex-direction:column;align-items:flex-start;}
+.fund__icon{
+  display:block;
+  font-size:2rem;
+  line-height:1;
+  color:var(--gold);
+  margin-bottom:22px;
+}
+.fund h3{font-size:1.3rem;margin-bottom:14px;}
+.fund p{font-size:1rem;color:var(--muted);margin-bottom:32px;}
+/* margin-top:auto holds the buttons on one line even when the copy above
+   runs to a different number of lines */
+.fund .btn{margin-top:auto;}
+.btn--gold{
+  border-color:var(--gold);
+  color:var(--gold);
+  border-radius:3px;
+  padding:10px 30px;
+}
+.btn--gold:hover{background:var(--gold);border-color:var(--gold);color:#fff;}
+
+/* ============================================================
+   6. CONTACT
+   ============================================================ */
+.contact{padding:120px 0;}
+.contact__head{text-align:center;max-width:600px;margin:0 auto 62px;}
+.contact h2{font-size:clamp(2rem,3.2vw,2.85rem);margin-bottom:20px;}
+.form{max-width:660px;margin:0 auto;}
+.form__row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:38px;
+  margin-bottom:38px;
+}
+.form__row--single{grid-template-columns:1fr;}
+.field{display:flex;flex-direction:column;}
+.field label{
+  font-size:10.5px;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:10px;
+}
+.field input,
+.field textarea{
+  font-family:var(--font-body);
+  font-size:16px;
+  color:var(--charcoal);
+  background:transparent;
+  border:0;
+  border-bottom:1px solid var(--rule);
+  border-radius:0;
+  padding:10px 2px;
+  outline:none;
+  width:100%;
+}
+.field textarea{resize:vertical;min-height:118px;line-height:1.7;}
+.field input:focus,
+.field textarea:focus{border-bottom-color:var(--primary);}
+.form__foot{margin-top:46px;text-align:center;}
+.form__note{
+  display:block;
+  margin-top:20px;
+  font-size:12px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--muted);
+  min-height:18px;
+}
+
+/* ============================================================
+   6. FOOTER
+   ============================================================ */
+/* a dark card floating on the white page: links top-left, contact top-right,
+   and the wordmark filling the bottom out of a glow rising from below */
+.footer{background:var(--secondary);}
+.footer__card{
+  position:relative;
+  overflow:hidden;
+  /* full-bleed: the side padding matches the .shell gutter, so the links and
+     contact details still line up with the nav and every section above */
+  padding:64px max(24px,calc((100% - var(--shell)) / 2 + 40px)) 0;
+  color:#fff;
+  background-color:var(--secondary);
+  /* every stop is opaque and lands on --secondary, so the glow blends into
+     the card instead of fading through transparent black */
+  background-image:radial-gradient(120% 95% at 50% 114%,
+    color-mix(in srgb, var(--gold) 30%, #fff) 0%,
+    color-mix(in srgb, var(--gold) 88%, #fff) 16%,
+    var(--gold) 30%,
+    color-mix(in srgb, var(--gold) 52%, var(--secondary)) 48%,
+    color-mix(in srgb, var(--gold) 18%, var(--secondary)) 66%,
+    var(--secondary) 84%);
+}
+.footer__top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:40px;
+}
+.footer__links{display:flex;flex-direction:column;gap:14px;}
+.footer__links a{
+  font-size:15px;
+  color:var(--on-dark-soft);
+  width:max-content;
+  border-bottom:1px solid transparent;
+}
+.footer__links a:hover{color:#fff;border-bottom-color:var(--gold);}
+.footer__meta{text-align:right;}
+.socials{display:flex;justify-content:flex-end;gap:20px;margin-bottom:22px;}
+.socials a{font-size:15px;line-height:1;color:var(--on-dark-soft);}
+.socials a:hover{color:var(--gold);}
+.footer__contact{list-style:none;margin:0;padding:0;}
+.footer__contact li{margin-bottom:8px;font-size:13.5px;color:var(--on-dark-soft);}
+.footer__contact li:last-child{color:rgba(255,255,255,.42);}
+.footer__contact a{color:inherit;}
+.footer__contact a:hover{color:#fff;}
+
+.footer__mark{
+  margin-top:34px;
+  padding-bottom:10px;
+  overflow:hidden;
+  text-align:center;
+}
+.footer__mark span{
+  display:block;
+  font-family:var(--font-head);
+  /* sized to span the card at the full name's length */
+  font-size:clamp(1.2rem,5.2vw,7rem);
+  line-height:.9;
+  letter-spacing:.02em;
+  text-transform:uppercase;
+  white-space:nowrap;
+  color:rgba(255,255,255,.46);
+  text-shadow:0 0 80px rgba(255,255,255,.25);
+  /* letter-spacing adds a trailing gap — nudge back to optical center */
+  text-indent:.02em;
+  /* line-height .9 already leaves a small gap under the baseline, which is
+     the only space between the wordmark and the bottom of the page */
+}
+
+/* ============================================================
+   LIVE STYLE PANEL (testing utility — not part of the design)
+   ============================================================ */
+.styler{
+  position:fixed;
+  right:24px;
+  bottom:24px;
+  z-index:999;
+  font-family:system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+.styler__toggle{
+  width:52px;height:52px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.18);
+  background:var(--secondary);
+  color:#fff;
+  font-size:21px;
+  line-height:1;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  margin-left:auto;
+  box-shadow:0 6px 22px rgba(0,0,0,.22);
+}
+.styler__panel{
+  display:none;
+  width:270px;
+  max-height:min(70vh,520px);
+  overflow-y:auto;
+  background:#fff;
+  border:1px solid #E2DED8;
+  box-shadow:0 14px 40px rgba(0,0,0,.16);
+  padding:20px;
+  margin-bottom:12px;
+}
+.styler.is-open .styler__panel{display:block;}
+.styler__title{
+  font-size:10px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:#8A8A8A;
+  margin:0 0 16px;
+  padding-bottom:12px;
+  border-bottom:1px solid #EFEBE5;
+}
+.styler__field{margin-bottom:15px;}
+.styler__field label{
+  display:block;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.04em;
+  color:#333;
+  margin-bottom:6px;
+}
+.styler__field input[type="color"]{
+  width:100%;height:34px;
+  padding:2px;
+  border:1px solid #DDD8D1;
+  background:#fff;
+  cursor:pointer;
+}
+.styler__field select{
+  width:100%;
+  font-family:inherit;
+  font-size:13px;
+  color:#222;
+  padding:8px 9px;
+  border:1px solid #DDD8D1;
+  background:#fff;
+  cursor:pointer;
+}
+.styler__reset{
+  width:100%;
+  font-family:inherit;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:#444;
+  background:#F5F2EE;
+  border:1px solid #DDD8D1;
+  padding:11px;
+  margin-top:6px;
+  cursor:pointer;
+}
+.styler__reset:hover{background:#ECE7E0;}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:1024px){
+  .shell{padding:0 32px;}
+  .about{padding:96px 0;}
+  .about__grid{gap:52px;}
+  .services{padding:88px 0 96px;}
+  .service{padding:6px 30px;}
+  .why{padding:92px 0;}
+  .funding{padding:84px 0;}
+  .contact{padding:96px 0;}
+  .pillars{gap:32px;}
+  .funding__grid{gap:40px;}
+}
+/* Below this width "cover" starts cropping the photo's empty left side away,
+   so the copy can no longer sit beside the family — it sits on top of it
+   instead, with the white fading downward rather than across. */
+@media (max-width:1120px){
+  .hero{
+    align-items:flex-start;
+    padding:calc(var(--nav-h) + 56px) 0 68px;
+    background-position:72% bottom;
+    background-image:
+      linear-gradient(180deg,
+        rgba(255,255,255,.97) 0%,
+        rgba(255,255,255,.94) 44%,
+        rgba(255,255,255,.55) 64%,
+        rgba(255,255,255,0) 82%),
+      var(--hero-img);
+  }
+  .hero__inner{max-width:640px;}
+  .hero h1{font-size:clamp(2.2rem,5.4vw,3rem);}
+}
+@media (max-width:900px){
+  .about__grid{grid-template-columns:1fr;gap:48px;}
+  .frame{max-width:400px;margin:0 auto;}
+  .pillars{grid-template-columns:1fr;gap:28px;margin-top:56px;padding-top:44px;}
+}
+@media (max-width:860px){
+  .services__grid{grid-template-columns:1fr;gap:52px;}
+  .service{padding:0;}
+  .service + .service{border-left:0;padding-top:52px;border-top:1px solid var(--rule-soft);}
+  .services__head{margin-bottom:56px;}
+  .funding__grid{grid-template-columns:1fr;gap:52px;}
+  .funding__head{margin-bottom:56px;}
+  .footer__card{padding:52px 32px 0;}
+}
+@media (max-width:720px){
+  :root{--nav-h:106px;}
+  .shell{padding:0 24px;}
+  .nav{height:auto;padding:14px 0 12px;}
+  .nav .shell{flex-direction:column;gap:12px;}
+  .nav__links{gap:24px;}
+  .nav__links a{font-size:10.5px;letter-spacing:.16em;}
+  /* phone: no scrim at all — the photo sits as a band along the bottom (its
+     own top edge is the white wall, so the seam is invisible) and the copy
+     gets clean white above it */
+  .hero{
+    min-height:0;
+    align-items:flex-start;
+    padding:calc(var(--nav-h) + 44px) 0 300px;
+    background-image:var(--hero-img);
+    background-size:auto 300px;
+    background-position:68% bottom;
+  }
+  .hero__sub{margin-bottom:38px;}
+  .btn{padding:17px 40px;width:100%;max-width:340px;}
+  .about,.contact{padding:76px 0;}
+  .services{padding:72px 0 80px;}
+  .why{padding:76px 0;}
+  .funding{padding:72px 0;}
+  .form__row{grid-template-columns:1fr;gap:30px;margin-bottom:30px;}
+  .footer__card{padding:44px 24px 0;}
+  .footer__top{flex-direction:column;gap:30px;}
+  .footer__meta{text-align:left;}
+  .socials{justify-content:flex-start;gap:18px;}
+  .footer__mark{margin-top:26px;}
+  /* one line would be unreadably small on a phone — let it wrap and go big */
+  .footer__mark span{white-space:normal;font-size:12.5vw;line-height:1.02;}
+  .styler{right:16px;bottom:16px;left:16px;}
+  .styler__panel{width:100%;max-height:min(62vh,440px);}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="shell">
+    <a class="nav__mark" href="#top">National Benefits USA</a>
+    <nav>
+      <ul class="nav__links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ 1. HERO ============ -->
+  <!-- BACKGROUND IMAGE GOES HERE: set as --hero-img in :root (hero_background.png) -->
+  <section class="hero">
+    <div class="shell">
+      <div class="hero__inner">
+        <div class="hero__ornament">&#10022;&#10022;&#10022;</div>
+        <h1>Reliable Internet. Peace of Mind.</h1>
+        <p class="hero__sub">For a limited time, qualified households can receive six months of high-speed internet service at no cost. No hidden fees. No commitments.</p>
+        <a class="btn" href="#contact">Check Your Eligibility</a>
+        <p class="hero__tag">Proudly supported by National Benefits USA</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 2. ABOUT ============ -->
+  <section class="about" id="about">
+    <div class="shell">
+      <div class="about__grid">
+        <div>
+          <hr class="rule">
+          <div class="eyebrow">About National Benefits USA</div>
+          <h2>Connecting Families to What Matters Most</h2>
+          <p class="lede">At National Benefits USA, we believe that reliable internet access is no longer a luxury&mdash;it&rsquo;s a necessity. From education and work to healthcare and staying in touch with loved ones, the internet has become the backbone of modern life. Yet, too many households are left behind simply because of cost.</p>
+          <p class="lede">Our mission is simple: to bridge that gap. Through community support and partnerships, we help qualified families access high-speed internet services at no cost for six months. No hidden fees. No long-term contracts. Just the connection you need to stay ahead.</p>
+        </div>
+        <div class="frame">
+          <img src="about%20us.png" alt="Modern family home connected to high-speed internet">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3. SERVICES ============ -->
+  <section class="services" id="services">
+    <div class="shell">
+      <div class="services__head">
+        <hr class="rule rule--center">
+        <h2>What We Offer</h2>
+      </div>
+      <div class="services__grid">
+        <article class="service">
+          <span class="service__icon">&#10022;</span>
+          <h3>Fast &amp; Reliable Internet</h3>
+          <p>Enjoy high-speed connectivity for work, school, and entertainment. No buffering, no delays&mdash;just seamless performance when you need it most.</p>
+        </article>
+        <article class="service">
+          <span class="service__icon">&#9635;</span>
+          <h3>No Cost for 6 Months</h3>
+          <p>Qualified households receive six months of free internet service. No hidden fees, no surprise charges, and no long-term commitments.</p>
+        </article>
+        <article class="service">
+          <span class="service__icon">&#9670;</span>
+          <h3>Simple Qualification Process</h3>
+          <p>Our team makes it easy to check your eligibility. A quick conversation is all it takes to get started on your path to free connectivity.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. WHY CHOOSE US ============ -->
+  <section class="why" id="why">
+    <div class="shell">
+      <div class="why__head">
+        <hr class="rule rule--center">
+        <h2>Why Families Trust Us</h2>
+        <p class="quote">&ldquo;National Benefits USA made the process so simple. Within minutes, we qualified for free internet service. Now my kids can do their homework, and I can work from home without any interruptions. It&rsquo;s been a blessing for our family.&rdquo;</p>
+        <div class="quote__by">&mdash; Sarah M., Satisfied Family</div>
+        <ul class="pillars">
+          <li>
+            <span class="mark">&#10022;</span>
+            <div>
+              <h4>Simple &amp; Transparent</h4>
+              <p>No hidden terms. No complicated contracts. Just clear, honest service.</p>
+            </div>
+          </li>
+          <li>
+            <span class="mark">&#10022;</span>
+            <div>
+              <h4>Community Supported</h4>
+              <p>Funded by donations and government programs designed to help families like yours.</p>
+            </div>
+          </li>
+          <li>
+            <span class="mark">&#10022;</span>
+            <div>
+              <h4>Fast &amp; Easy Setup</h4>
+              <p>Get connected quickly with our partnered providers. We handle the paperwork.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5. FUNDING & SUPPORT ============ -->
+  <section class="funding" id="funding">
+    <div class="shell">
+      <div class="funding__head">
+        <hr class="rule rule--center">
+        <h2>Where Our Support Comes From</h2>
+        <p class="funding__sub">We are proud to be supported by a combination of community donations and government programs. This allows us to offer free internet services to qualified families without any cost to you.</p>
+      </div>
+      <div class="funding__grid">
+        <article class="fund">
+          <span class="fund__icon">&#10070;</span>
+          <h3>Community Donations</h3>
+          <p>Generous contributions from individuals and local organizations help us extend our reach to more families in need.</p>
+          <a class="btn btn--gold" href="#">Make a Donation</a>
+        </article>
+        <article class="fund">
+          <span class="fund__icon">&#9635;</span>
+          <h3>Government Programs</h3>
+          <p>Through the Affordable Connectivity Program (ACP) and other federal initiatives, we are able to provide sustainable, long-term support.</p>
+          <a class="btn btn--gold" href="https://www.fcc.gov/acp" target="_blank" rel="noopener noreferrer">Learn More</a>
+        </article>
+        <article class="fund">
+          <span class="fund__icon">&#9670;</span>
+          <h3>Corporate Partnerships</h3>
+          <p>Local businesses and internet providers partner with us to ensure families get the best possible service at no cost.</p>
+          <a class="btn btn--gold" href="#">Learn More</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6. CONTACT ============ -->
+  <section class="contact" id="contact">
+    <div class="shell">
+      <div class="contact__head">
+        <hr class="rule rule--center">
+        <h2>Get In Touch</h2>
+        <p class="lede">Have questions? Our team is here to help. Reach out to us and we&rsquo;ll get back to you within 24 hours.</p>
+      </div>
+      <form class="form" id="contactForm">
+        <div class="form__row">
+          <div class="field">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+          </div>
+          <div class="field">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+          </div>
+        </div>
+        <div class="form__row form__row--single">
+          <div class="field">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="4" placeholder="Tell us how we can help you..." required></textarea>
+        </div>
+        <div class="form__foot">
+          <button class="btn" type="submit">Send Message</button>
+          <span class="form__note" id="formNote" role="status" aria-live="polite"></span>
+        </div>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ 6. FOOTER ============ -->
+<footer class="footer">
+  <div class="footer__card">
+
+      <div class="footer__top">
+        <nav class="footer__links">
+          <a href="#top">Home</a>
+          <a href="#about">About</a>
+          <a href="#services">Services</a>
+          <a href="#why">Why Us</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <div class="footer__meta">
+          <div class="socials">
+            <a href="#" aria-label="LinkedIn">in</a>
+            <a href="#" aria-label="X">&#120143;</a>
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="Instagram">&#9678;</a>
+          </div>
+          <ul class="footer__contact">
+            <li>E-mail: <a href="mailto:lorem@example.com">lorem@example.com</a></li>
+            <li><a href="tel:+10000000000">+1 (000) 000-0000</a></li>
+            <li>1234 Lorem Ipsum Avenue, Dolor Sit, NY 10001</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer__mark"><span>National Benefits USA</span></div>
+
+  </div>
+</footer>
+
+<!-- ============ LIVE STYLE PANEL ============ -->
+<div class="styler" id="styler">
+  <div class="styler__panel" id="stylerPanel">
+    <p class="styler__title">Style Controls</p>
+
+    <div class="styler__field">
+      <label for="ctlPrimary">Primary Color</label>
+      <input type="color" id="ctlPrimary" value="#1B2A4A">
+    </div>
+
+    <div class="styler__field">
+      <label for="ctlSecondary">Secondary Color</label>
+      <input type="color" id="ctlSecondary" value="#14213D">
+    </div>
+
+    <div class="styler__field">
+      <label for="ctlHead">Heading Font</label>
+      <select id="ctlHead">
+        <option value="Georgia, 'Times New Roman', serif">Georgia</option>
+        <option value="'Times New Roman', Times, serif">Times New Roman</option>
+        <option value="'Playfair Display', Georgia, serif">Playfair Display</option>
+      </select>
+    </div>
+
+    <div class="styler__field">
+      <label for="ctlBody">Body Font</label>
+      <select id="ctlBody">
+        <option value="'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif">Inter</option>
+        <option value="Arial, Helvetica, sans-serif">Arial</option>
+        <option value="'Lato', 'Segoe UI', sans-serif">Lato</option>
+      </select>
+    </div>
+
+    <button class="styler__reset" id="ctlReset" type="button">Reset to Default</button>
+  </div>
+  <button class="styler__toggle" id="stylerToggle" type="button" aria-label="Style controls" aria-expanded="false">&#9881;</button>
+</div>
+
+<script>
+(function () {
+  var ROOT = document.documentElement;
+  var KEY = 'nbusa-style';
+
+  var MAP = {
+    primary:   { prop: '--primary',   el: 'ctlPrimary'   },
+    secondary: { prop: '--secondary', el: 'ctlSecondary' },
+    head:      { prop: '--font-head', el: 'ctlHead'      },
+    body:      { prop: '--font-body', el: 'ctlBody'      }
+  };
+
+  var DEFAULTS = {};
+  Object.keys(MAP).forEach(function (k) {
+    DEFAULTS[k] = document.getElementById(MAP[k].el).value;
+  });
+
+  function read() {
+    try { return JSON.parse(localStorage.getItem(KEY)) || {}; }
+    catch (e) { return {}; }
+  }
+  function write(state) {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+  }
+  function apply(key, value) {
+    ROOT.style.setProperty(MAP[key].prop, value);
+  }
+
+  /* restore saved settings and wire up the controls */
+  var saved = read();
+  Object.keys(MAP).forEach(function (key) {
+    var control = document.getElementById(MAP[key].el);
+    if (saved[key]) {
+      control.value = saved[key];
+      /* only apply if the value stuck (a select option may have changed) */
+      if (control.value === saved[key]) { apply(key, saved[key]); }
+    }
+    control.addEventListener('input', function () {
+      apply(key, control.value);
+      var state = read();
+      state[key] = control.value;
+      write(state);
+    });
+  });
+
+  /* reset back to the shipped navy / gold scheme */
+  document.getElementById('ctlReset').addEventListener('click', function () {
+    Object.keys(MAP).forEach(function (key) {
+      ROOT.style.removeProperty(MAP[key].prop);
+      document.getElementById(MAP[key].el).value = DEFAULTS[key];
+    });
+    try { localStorage.removeItem(KEY); } catch (e) {}
+  });
+
+  /* panel open / close */
+  var styler = document.getElementById('styler');
+  var toggle = document.getElementById('stylerToggle');
+  function setOpen(open) {
+    styler.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  toggle.addEventListener('click', function (e) {
+    e.stopPropagation();
+    setOpen(!styler.classList.contains('is-open'));
+  });
+  document.addEventListener('click', function (e) {
+    if (!styler.contains(e.target)) { setOpen(false); }
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { setOpen(false); }
+  });
+
+  /* contact form — no backend, so keep the page put */
+  var form = document.getElementById('contactForm');
+  var note = document.getElementById('formNote');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    note.textContent = 'Thank you — your message has been received.';
+    form.reset();
+  });
+})();
+</script>
+
+</body>
+</html>

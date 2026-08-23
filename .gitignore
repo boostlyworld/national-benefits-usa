@@ -1,0 +1,7 @@
+# OS cruft
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# design reference, not part of the site
+Footer sample.jpg
