@@ -3,7 +3,45 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>National Benefits USA</title>
+<title>National Benefits USA | Free Internet for 6 Months | Lifeline &amp; Survivor Benefit Help</title>
+<meta name="description" content="National Benefits USA helps families get free internet for 6 months. We simplify the application process for Lifeline and Survivor Benefit programs. Check your eligibility today.">
+<meta name="keywords" content="free internet, Lifeline program, Survivor Benefit, government benefits, internet assistance, free internet for 6 months, National Benefits USA, NB USA, connectivity program, low-cost internet">
+<link rel="canonical" href="https://www.nbusa.org/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="National Benefits USA">
+<meta property="og:url" content="https://www.nbusa.org/">
+<meta property="og:title" content="National Benefits USA | Free Internet for 6 Months">
+<meta property="og:description" content="We help families get free internet for 6 months through government programs and community funding. Apply today.">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="National Benefits USA | Free Internet for 6 Months">
+<meta name="twitter:description" content="We help families get free internet for 6 months through government programs and community funding. Apply today.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "National Benefits USA",
+  "description": "We help families get free internet for 6 months through government programs and community funding.",
+  "url": "https://www.nbusa.org",
+  "telephone": "+1-888-362-0064",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Washington",
+    "addressRegion": "DC",
+    "postalCode": "20554",
+    "addressCountry": "US"
+  },
+  "sameAs": [
+    "https://www.facebook.com/nbusa",
+    "https://www.twitter.com/nbusa"
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
@@ -135,28 +173,37 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px);}
    1. HERO
    ============================================================ */
 .hero{
+  position:relative;
   min-height:100vh;
   min-height:100dvh;
   display:flex;
   align-items:center;
   text-align:left;
-  padding:calc(var(--nav-h) + 80px) 0 96px;
-  /* hero_background.png sits in this folder — the white space on its left
-     is where the copy lands. The white gradient on top keeps the text
-     legible once "cover" starts cropping the image on smaller screens. */
+  padding:calc(var(--nav-h) + 56px) 0 72px;
+  /* hero_background.png sits in this folder — its empty left third is where
+     the copy lands. The scrim below covers whatever the copy overruns. */
   background-color:var(--bg);
-  background-image:
-    linear-gradient(90deg,
-      rgba(255,255,255,.96) 0%,
-      rgba(255,255,255,.92) 32%,
-      rgba(255,255,255,.32) 44%,
-      rgba(255,255,255,0) 52%),
-    var(--hero-img);
+  background-image:var(--hero-img);
   background-repeat:no-repeat;
   background-position:right center;
   background-size:cover;
 }
-.hero__inner{max-width:520px;}
+/* The scrim is anchored to the copy column rather than to a viewport
+   percentage, so it ends just past the text at every screen width instead of
+   fading out somewhere in the middle of a line. Width = the .shell's left
+   gutter + the copy column + the length of the fade. */
+.hero::before{
+  content:'';
+  position:absolute;
+  top:0;bottom:0;left:0;
+  width:calc(max(40px, (100vw - var(--shell)) / 2 + 40px) + 420px + 130px);
+  background:linear-gradient(to left,
+    rgba(255,255,255,0) 0,
+    rgba(255,255,255,.97) 130px);
+  pointer-events:none;
+}
+.hero > .shell{position:relative;z-index:1;}
+.hero__inner{max-width:420px;}
 .hero h1{
   font-size:clamp(2.2rem,3.6vw,3.6rem);
   letter-spacing:.005em;
@@ -318,9 +365,24 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px);}
 }
 .fund h3{font-size:1.3rem;margin-bottom:14px;}
 .fund p{font-size:1rem;color:var(--muted);margin-bottom:32px;}
-/* margin-top:auto holds the buttons on one line even when the copy above
-   runs to a different number of lines */
-.fund .btn{margin-top:auto;}
+/* margin-top:auto keeps the button block pinned to the bottom of every column,
+   so the buttons line up even when the copy above runs to a different height.
+   The Lifeline column carries two buttons, so they stack and stretch to a
+   shared width rather than sitting side by side and overflowing the column. */
+.fund__actions{
+  margin-top:auto;
+  display:flex;
+  flex-direction:column;
+  align-self:stretch;
+  gap:12px;
+}
+.fund__actions .btn{
+  margin-top:0;
+  /* the longest label wraps to two lines in the narrow columns —
+     line-height:1 would collide them */
+  line-height:1.35;
+  text-align:center;
+}
 .btn--gold{
   border-color:var(--gold);
   color:var(--gold);
@@ -550,21 +612,28 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px);}
   .pillars{gap:32px;}
   .funding__grid{gap:40px;}
 }
-/* Below this width "cover" starts cropping the photo's empty left side away,
-   so the copy can no longer sit beside the family — it sits on top of it
-   instead, with the white fading downward rather than across. */
+/* Below this width "cover" crops the photo's empty left side away, so the copy
+   can no longer sit beside the family. Rather than overlay it — the copy is
+   tall enough that any fixed fade lands mid-sentence at some viewport height —
+   the photo becomes a band along the bottom and the copy gets clean white
+   above it, the same treatment the phone layout already uses. */
 @media (max-width:1120px){
   .hero{
+    min-height:0;
     align-items:flex-start;
-    padding:calc(var(--nav-h) + 56px) 0 68px;
-    background-position:72% bottom;
-    background-image:
-      linear-gradient(180deg,
-        rgba(255,255,255,.97) 0%,
-        rgba(255,255,255,.94) 44%,
-        rgba(255,255,255,.55) 64%,
-        rgba(255,255,255,0) 82%),
-      var(--hero-img);
+    padding:calc(var(--nav-h) + 56px) 0 400px;
+    background-image:none;
+  }
+  .hero::before{display:none;}
+  /* the band is its own element rather than a sized background so that "cover"
+     can crop it to a fixed height while still bleeding the full width — a
+     height-sized background would leave hard edges either side of the photo */
+  .hero::after{
+    content:'';
+    position:absolute;
+    left:0;right:0;bottom:0;
+    height:400px;
+    background:var(--hero-img) 68% bottom / cover no-repeat;
   }
   .hero__inner{max-width:640px;}
   .hero h1{font-size:clamp(2.2rem,5.4vw,3rem);}
@@ -590,17 +659,11 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px);}
   .nav .shell{flex-direction:column;gap:12px;}
   .nav__links{gap:24px;}
   .nav__links a{font-size:10.5px;letter-spacing:.16em;}
-  /* phone: no scrim at all — the photo sits as a band along the bottom (its
-     own top edge is the white wall, so the seam is invisible) and the copy
-     gets clean white above it */
+  /* phone: the same bottom band as the tablet range, just shorter */
   .hero{
-    min-height:0;
-    align-items:flex-start;
     padding:calc(var(--nav-h) + 44px) 0 300px;
-    background-image:var(--hero-img);
-    background-size:auto 300px;
-    background-position:68% bottom;
   }
+  .hero::after{height:300px;}
   .hero__sub{margin-bottom:38px;}
   .btn{padding:17px 40px;width:100%;max-width:340px;}
   .about,.contact{padding:76px 0;}
@@ -644,8 +707,8 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px);}
     <div class="shell">
       <div class="hero__inner">
         <div class="hero__ornament">&#10022;&#10022;&#10022;</div>
-        <h1>Reliable Internet. Peace of Mind.</h1>
-        <p class="hero__sub">For a limited time, qualified households can receive six months of high-speed internet service at no cost. No hidden fees. No commitments.</p>
+        <h1>Get 6 Months of Free Internet. We&rsquo;ll Help You Qualify.</h1>
+        <p class="hero__sub">National Benefits USA simplifies the process. We help you apply for government programs like Lifeline and the Survivor Benefit. Even if you don&rsquo;t qualify, we may still be able to offer you 6 months of free service through our community funding.</p>
         <a class="btn" href="#contact">Check Your Eligibility</a>
         <p class="hero__tag">Proudly supported by National Benefits USA</p>
       </div>
@@ -659,39 +722,39 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px);}
         <div>
           <hr class="rule">
           <div class="eyebrow">About National Benefits USA</div>
-          <h2>Connecting Families to What Matters Most</h2>
-          <p class="lede">At National Benefits USA, we believe that reliable internet access is no longer a luxury&mdash;it&rsquo;s a necessity. From education and work to healthcare and staying in touch with loved ones, the internet has become the backbone of modern life. Yet, too many households are left behind simply because of cost.</p>
-          <p class="lede">Our mission is simple: to bridge that gap. Through community support and partnerships, we help qualified families access high-speed internet services at no cost for six months. No hidden fees. No long-term contracts. Just the connection you need to stay ahead.</p>
+          <h2>We Help Deserving Families Get Connected</h2>
+          <p class="lede">At National Benefits USA, we believe everyone deserves access to reliable internet. But we also know that navigating government programs like Lifeline and the Survivor Benefit can be confusing and overwhelming. Our mission is to change that.</p>
+          <p class="lede">We act as your guide. We help you understand if you qualify for programs like the Survivor Benefit (which supports survivors of domestic violence) or Lifeline. We simplify the application steps, making the process straightforward and stress-free. And for families who don&rsquo;t qualify for government aid, our community-funded program can still provide 6 months of free internet.</p>
         </div>
         <div class="frame">
-          <img src="about%20us.png" alt="Modern family home connected to high-speed internet">
+          <img src="about%20us.png" alt="Family at home, each room connected to the internet">
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ 3. SERVICES ============ -->
+  <!-- ============ 3. HOW WE HELP YOU ============ -->
   <section class="services" id="services">
     <div class="shell">
       <div class="services__head">
         <hr class="rule rule--center">
-        <h2>What We Offer</h2>
+        <h2>How We Help You</h2>
       </div>
       <div class="services__grid">
         <article class="service">
           <span class="service__icon">&#10022;</span>
-          <h3>Fast &amp; Reliable Internet</h3>
-          <p>Enjoy high-speed connectivity for work, school, and entertainment. No buffering, no delays&mdash;just seamless performance when you need it most.</p>
+          <h3>Guide You to Government Programs</h3>
+          <p>We help you understand if you qualify for Lifeline or the Survivor Benefit. Our team simplifies the paperwork and guides you through every step, so you don&rsquo;t have to do it alone.</p>
         </article>
         <article class="service">
           <span class="service__icon">&#9635;</span>
-          <h3>No Cost for 6 Months</h3>
-          <p>Qualified households receive six months of free internet service. No hidden fees, no surprise charges, and no long-term commitments.</p>
+          <h3>Our 6-Month Free Offer</h3>
+          <p>Don&rsquo;t qualify for a government program? Through our community donations and partnerships, we can still offer you 6 months of free internet service. No hidden fees. No commitments.</p>
         </article>
         <article class="service">
           <span class="service__icon">&#9670;</span>
-          <h3>Simple Qualification Process</h3>
-          <p>Our team makes it easy to check your eligibility. A quick conversation is all it takes to get started on your path to free connectivity.</p>
+          <h3>Simple &amp; Supportive Process</h3>
+          <p>From your first call to getting connected, we&rsquo;re here to help. We make the process easy, clear, and stress-free, so you can focus on what matters most.</p>
         </article>
       </div>
     </div>
@@ -702,29 +765,29 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px);}
     <div class="shell">
       <div class="why__head">
         <hr class="rule rule--center">
-        <h2>Why Families Trust Us</h2>
-        <p class="quote">&ldquo;National Benefits USA made the process so simple. Within minutes, we qualified for free internet service. Now my kids can do their homework, and I can work from home without any interruptions. It&rsquo;s been a blessing for our family.&rdquo;</p>
+        <h2>Why Families Trust National Benefits USA</h2>
+        <p class="quote">&ldquo;National Benefits USA didn&rsquo;t just offer us free internet&mdash;they helped us apply for a program I didn&rsquo;t even know existed. They made the whole process so simple. Now my kids can do their homework, and I can work from home.&rdquo;</p>
         <div class="quote__by">&mdash; Sarah M., Satisfied Family</div>
         <ul class="pillars">
           <li>
             <span class="mark">&#10022;</span>
             <div>
-              <h4>Simple &amp; Transparent</h4>
-              <p>No hidden terms. No complicated contracts. Just clear, honest service.</p>
+              <h4>We Simplify Government Programs</h4>
+              <p>We make it easy to apply for Lifeline, the Survivor Benefit, and other aid. You don&rsquo;t need to be an expert&mdash;we are.</p>
             </div>
           </li>
           <li>
             <span class="mark">&#10022;</span>
             <div>
-              <h4>Community Supported</h4>
-              <p>Funded by donations and government programs designed to help families like yours.</p>
+              <h4>Support for Everyone</h4>
+              <p>Whether you qualify for government aid or not, we have options to help you get connected.</p>
             </div>
           </li>
           <li>
             <span class="mark">&#10022;</span>
             <div>
-              <h4>Fast &amp; Easy Setup</h4>
-              <p>Get connected quickly with our partnered providers. We handle the paperwork.</p>
+              <h4>Trusted &amp; Transparent</h4>
+              <p>We&rsquo;re funded by donations and government initiatives. Our goal is to help, not to profit.</p>
             </div>
           </li>
         </ul>
@@ -738,26 +801,33 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px);}
       <div class="funding__head">
         <hr class="rule rule--center">
         <h2>Where Our Support Comes From</h2>
-        <p class="funding__sub">We are proud to be supported by a combination of community donations and government programs. This allows us to offer free internet services to qualified families without any cost to you.</p>
+        <p class="funding__sub">National Benefits USA is supported by two main sources: government programs like Lifeline and the Survivor Benefit, and generous community donations. This allows us to help as many families as possible.</p>
       </div>
       <div class="funding__grid">
         <article class="fund">
-          <span class="fund__icon">&#10070;</span>
+          <span class="fund__icon">&#9670;</span>
+          <h3>Lifeline &amp; Survivor Benefit</h3>
+          <p>Through the federal Lifeline program and the Survivor Benefit (part of the Safe Connections Act), eligible households can receive a discount on phone and internet service. We help you navigate the application process.</p>
+          <div class="fund__actions">
+            <a class="btn btn--gold" href="https://www.fcc.gov/lifeline-consumers" target="_blank" rel="noopener noreferrer">Learn About Lifeline</a>
+            <a class="btn btn--gold" href="https://www.lifelinesupport.org/survivor-benefit/" target="_blank" rel="noopener noreferrer">Learn About Survivor Benefit</a>
+          </div>
+        </article>
+        <article class="fund">
+          <span class="fund__icon">&#10022;</span>
           <h3>Community Donations</h3>
-          <p>Generous contributions from individuals and local organizations help us extend our reach to more families in need.</p>
-          <a class="btn btn--gold" href="#">Make a Donation</a>
+          <p>Generous contributions from individuals and local organizations help us extend our reach. These funds allow us to offer our 6-month free internet program to families who don&rsquo;t qualify for government aid.</p>
+          <div class="fund__actions">
+            <a class="btn btn--gold" href="#">Make a Donation</a>
+          </div>
         </article>
         <article class="fund">
           <span class="fund__icon">&#9635;</span>
-          <h3>Government Programs</h3>
-          <p>Through the Affordable Connectivity Program (ACP) and other federal initiatives, we are able to provide sustainable, long-term support.</p>
-          <a class="btn btn--gold" href="https://www.fcc.gov/acp" target="_blank" rel="noopener noreferrer">Learn More</a>
-        </article>
-        <article class="fund">
-          <span class="fund__icon">&#9670;</span>
           <h3>Corporate Partnerships</h3>
-          <p>Local businesses and internet providers partner with us to ensure families get the best possible service at no cost.</p>
-          <a class="btn btn--gold" href="#">Learn More</a>
+          <p>Local businesses and internet providers partner with us to ensure families get the best possible service. Their support helps us cover costs and provide reliable connections.</p>
+          <div class="fund__actions">
+            <a class="btn btn--gold" href="#">Learn More</a>
+          </div>
         </article>
       </div>
     </div>
@@ -769,7 +839,7 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px);}
       <div class="contact__head">
         <hr class="rule rule--center">
         <h2>Get In Touch</h2>
-        <p class="lede">Have questions? Our team is here to help. Reach out to us and we&rsquo;ll get back to you within 24 hours.</p>
+        <p class="lede">Have questions about government programs or our 6-month free offer? Our team is here to help. Reach out to us and we&rsquo;ll get back to you within 24 hours.</p>
       </div>
       <form class="form" id="contactForm">
         <div class="form__row">
@@ -823,9 +893,9 @@ section{scroll-margin-top:calc(var(--nav-h) + 16px);}
             <a href="#" aria-label="Instagram">&#9678;</a>
           </div>
           <ul class="footer__contact">
-            <li>E-mail: <a href="mailto:lorem@example.com">lorem@example.com</a></li>
-            <li><a href="tel:+10000000000">+1 (000) 000-0000</a></li>
-            <li>1234 Lorem Ipsum Avenue, Dolor Sit, NY 10001</li>
+            <li>E-mail: <a href="mailto:info@nbusa.services">info@nbusa.services</a></li>
+            <li><a href="tel:+18883620064">+1 888 362 0064</a></li>
+            <li>Washington, DC 20554</li>
           </ul>
         </div>
       </div>
